@@ -1,0 +1,5 @@
+*.pyc
+resume.*
+resume_data.py
+resume_preferences.py
+resume_generator.ipynb
