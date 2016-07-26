@@ -29,28 +29,28 @@ class functional_test(unittest.TestCase):
         # Jun inputs her resume
         yaml_resume = """
         header:
-                name : Jun McResume
-                address : 30 Pleasent St.
-    		city : Suburbian
-    		state: Texas
-    		zipcode : 12345
-    		phone : '+1 (XXX)XXX-XXXX'
-			email : 'cliche@aol.net'
+            name : Jun McResume
+            address : 30 Pleasent St.
+            city : Suburbian
+            state: Texas
+            zipcode : 12345
+            phone : '+1 (XXX)XXX-XXXX'
+            email : 'cliche@aol.net'
     	
-    	- topic : Education
-    	  year  : 2017
-    	  tasks : 
-    		- name : Ph.D. Engineering
-    		  time : 2010-2012
-    		  org  : Massachusetts Institute of Technology
-    		  points:
-    		  	- text: advanced knowledge of catalytic systems for biogas recovery
-    			  emphasis: ['education','research']
-    	  points : 
-    	  	- text: I got a good education
-    	  	  emphasis : ['education']
-    	  	  
-    	- topic : Work
+        - topic : Education
+          year  : 2017
+          tasks : 
+            - name : Ph.D. Engineering
+              time : 2010-2012
+              org  : Massachusetts Institute of Technology
+              points:
+                - text: advanced knowledge of catalytic systems for biogas recovery
+                  emphasis: ['education','research']
+          points : 
+          - text: I got a good education
+            emphasis : ['education']
+            
+        - topic : Work
     	"""
         # Jun runs the resume through the engine
         generator.run_yaml(yaml_resume, categories = ['Education','Work'], emphasis = ['education','industry'], year = 2014)
