@@ -51,7 +51,7 @@ class functional_test(unittest.TestCase):
             emphasis : ['education']
             
         - topic : Work
-    	"""
+        """
         # Jun runs the resume through the engine
         generator.run_yaml(yaml_resume, categories = ['Education','Work'], emphasis = ['education','industry'], year = 2014)
         
