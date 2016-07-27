@@ -8,6 +8,7 @@ Created on Fri Jul 15 19:18:18 2016
 from backend import *
 from api import *
 #from os import 
+import yaml
 
 def prepare_resume_data():
     try:
@@ -50,3 +51,33 @@ if __name__ =='__main__':
     
     write(enddocument())
     
+def get_raw_python_from_yaml(yaml_string):
+    return yaml.load(yaml_string)
+    
+def process_header_from_raw_data(raw_python):
+    header = raw_python['header']
+    return header
+    
+def create_point_objects_from_point_list(raw_python):
+    """
+    input a list of dictionaries of point attributes
+    ensure proper keys or throw error
+    return list of point objects
+    """
+    raise NotImplementedError()
+    
+def create_task_objects_from_task_list(raw_python):
+    """
+    input a list of dictionaries of task attributes
+    ensure proper keys or throw error
+    return list of task objects
+    """
+    raise NotImplementedError()
+    
+def create_category_objects_from_category_lists(raw_python):
+    """
+    input a list of dictionaries of category attributes
+    ensure proper keys or throw error
+    return list of category objects
+    """
+    raise NotImplementedError()
