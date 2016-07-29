@@ -56,6 +56,7 @@ def get_raw_python_from_yaml(yaml_string):
     
 def process_header_from_raw_data(raw_python):
     header = raw_python['header']
+    header['zipcode']=str(header['zipcode'])
     return header
     
 def create_point_objects_from_point_list(raw_python):
@@ -64,7 +65,20 @@ def create_point_objects_from_point_list(raw_python):
     ensure proper keys or throw error
     return list of point objects
     """
-    raise NotImplementedError()
+    if not isinstance(raw_python, list):
+        raise TypeError('input to create_point_objects_from_point_list needs to be a list. currently is ' + str(type(raw_python)))
+    points = []
+    for point in raw_python:
+        if not isinstance(point, dict):
+            raise TypeError('input to create_point_objects_from_point_list needs to be a list of dictionaries. currently is  a list of ' + str(type(point)))
+        if 'text' not in point.keys():
+            raise Exception('point objects must have a "text" attribute. current point contains ' + str(point))
+        points.append(Point(point['text']))
+        if 'year' in point.keys():
+            points[-1].addYear(point['year'])
+        if 'emphasis' in point.keys():
+            points[-1].addEmphasis(point['emphasis'])
+    return points
     
 def create_task_objects_from_task_list(raw_python):
     """
@@ -74,7 +88,7 @@ def create_task_objects_from_task_list(raw_python):
     """
     raise NotImplementedError()
     
-def create_category_objects_from_category_lists(raw_python):
+def process_body_to_python_objects(raw_python):
     """
     input a list of dictionaries of category attributes
     ensure proper keys or throw error

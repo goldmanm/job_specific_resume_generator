@@ -108,10 +108,23 @@ class Point:
     """
     
     def __init__(self, text, year =10000, emphasis =''):
-        self.text = text
-        self.year = year
-        self.emphasis = emphasis
+        self.text = str(text)
+        self.year = self.addYear(year)
+        self.emphasis = self.addEmphasis(emphasis)
 
+    def addYear(self,year):
+        if isinstance(year,int):
+            self.year = year
+        else:
+            raise TypeError('point year must be an integer, but it is '+ str(type(year)) +
+                        '. the point text is currently "'+self.text+'"')
+        
+    def addEmphasis(self,emphasis):
+        if isinstance(emphasis,list) or isinstance(emphasis,str):
+            self.emphasis = emphasis
+        else:
+            raise TypeError('point emphasis must be an list or string, but it is '+ str(type(emphasis)) +
+                        '. the point text is currently "'+self.text+'"')
 
 class DocumentPreferences:
     """
