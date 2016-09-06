@@ -6,16 +6,19 @@ This program is an experiment designed to as a smart master resume which can aut
 
 ## to do
 
-* figure out unit tests
 * figure out how the frontend file should be designed
 	* determine classes to write in API
 * add information to my latex resume
 * have log and debug option?
+* close the writing file when finished writing. 
+* delete temperary file in test case.
+* reorganize the files (yaml conversion, tex printing, main_method separate from generating files)
 
 ## installation
 
+These files can be used directly from the command line window on linux systems (and possibly Mac, though it hasn't been tested). For windows 10 systems, you can utilize the vertual linux terminal in the Microsoft store to run this software. 
 
-
+This software require `pdflatex` as well as python 3 with the `yaml` package. Python can be installed through various python managers and `pdflatex` can be obtained from linux package manager systems
 
 ## designing your resume
 
@@ -28,7 +31,15 @@ When buildint the resume, you will imput information in python syntax. There are
 
 All of these objects can contain a year and a list of emphasis. When creating your resume, you can limit items based on these categories. If nothing is input, the items will always appear in your resume (though `Category`s can also be specified in the ceate file). 
 
+## running your resume
 
+Currently there is a two step process to make your resume. This may be made into one when an interface between `pdflatex` and `python` is made reliably.
+
+**prerequisites**: resume yaml file, preferences yaml file
+
+**step 1**: `python generator.py -d <path-to-resume>.yml -p <path-to-preferences>.yml -o <path-to-output-file>.tex`
+
+**step 2**: `pdflatex -synctex=1 -interaction=nonstopmode <path-to-tex-file>.tex`or open up your favorite tex-editor
 
 ## features in the works
 

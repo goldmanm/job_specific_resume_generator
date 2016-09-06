@@ -5,11 +5,13 @@ Created on Fri Jul 15 18:56:14 2016
 @author: mark
 """
 from api import *
+
+file_writer = None
 def write(text):
     """
     writes text into the document in a format to be decided later
     """
-    print(text)
+    file_writer.write(text)
     
 def writeobj(obj, pref):
     """

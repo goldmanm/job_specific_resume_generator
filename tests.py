@@ -9,7 +9,7 @@ from unittest import TestCase
 import yaml
 import generator
 import api
-
+import backend
 class Tests(TestCase):
     
     def setUp(self):
@@ -114,24 +114,69 @@ class Tests(TestCase):
         
         raw_python = generator.get_raw_python_from_yaml(self.yaml_resume)
         body_raw = generator.process_body_from_raw_data(raw_python)
-        body_processed = generator.process_body_to_python_objects(body_raw)
+        body_processed = generator.process_list_category_dicts_to_python_objects(body_raw)
         self.assertEqual(body_processed[0].tasks[0].title, 'Ph.D. Engineering')
         self.assertEqual(body_processed[0].tasks[0].points[0].text, 'advanced knowledge of catalytic systems for biogas recovery')
         self.assertEqual(body_processed[0].points[0].text, 'I got a good education')
         self.assertEqual(body_processed[1].name, 'Work')
         
+    def test_output_of_prepare_resume_preferences_is_correct(self):
         
+        preferences_yaml = """
         
+        acceptable emphasis :
+          -education
+          -research
+          -industry
+          -regulatory
+          -coding
+          -international
+        desired emphasis : 
+          -education
+        desired categories : 
+          -Education
+          -Work Experience
+        desired year : 2010
+        """
+        pref = generator.prepare_resume_preferences('default_preferences.yml')
+        self.assertIsInstance(pref,api.DocumentPreferences)
         
-    
+    def test_output_of_prepare_resume_data_is_correct(self):
+        header, category_list = generator.prepare_resume_data('example.yml')
+        self.assertIsInstance(header,dict)
+        self.assertIsInstance(category_list,list)
+        self.assertIsInstance(category_list[0],api.Category)
 
 class FunctionalTests(TestCase):
     
     def setUp(self):
+        
         pass
         
     def tearDown(self):
         pass
+    
+    def test_resume_can_be_input_as_yml_and_output_as_tex(self):
+        
+        # user inputs arguments into the command line 
+        arguments = ['-d','example.yml',
+                     '--preferences','resume_preferences.py',
+                     '-o','tex/test-resume.tex']
+        resume_file, resume_preferences, output_file_name = generator.parse_arguments(arguments)
+        generator.set_writing_file(output_file_name)
+        hd, category_list = generator.prepare_resume_data(resume_file)
+        pref = generator.prepare_resume_preferences(resume_preferences)
+        backend.write(backend.makeheader())
+        backend.write(backend.begindocument())
+        # makes name logo of the document
+        backend.write(api.header(hd['name'], hd['address'],hd['city'],hd['state'],hd['zipcode'], hd['phone'],hd['email']))
+        for category in category_list:
+            if category.name in pref.categories:
+                backend.writeobj(category,pref)
+                
+        
+    
+        backend.write(backend.enddocument())
 
 if __name__ =='__main__':
     unittest.main()

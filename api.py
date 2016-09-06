@@ -109,8 +109,8 @@ class Point:
     
     def __init__(self, text, year =10000, emphasis =''):
         self.text = str(text)
-        self.year = self.addYear(year)
-        self.emphasis = self.addEmphasis(emphasis)
+        self.addYear(year)
+        self.addEmphasis(emphasis)
 
     def addYear(self,year):
         if isinstance(year,int):
@@ -136,6 +136,8 @@ class DocumentPreferences:
         self.emph = emph
         self.categories = categories
         
+    def all_emph(self,list_of_all_emphasis):
+        self.list_of_all_emphasis = list_of_all_emphasis
     def judge(self,obj):
         """
         determines whether the object should be included in the output. returns

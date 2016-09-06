@@ -4,3 +4,11 @@ resume_data.py
 resume_preferences.py
 resume_generator.ipynb
 .spyderproject
+*.aux*
+*.aux
+*.bcf
+*.log
+*.xml
+*.synctex.gz
+*.tex
+*.pdf
