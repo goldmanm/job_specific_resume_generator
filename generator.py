@@ -55,9 +55,21 @@ def get_raw_python_from_yaml(yaml_string):
     return yaml.load(yaml_string)
     
 def process_header_from_raw_data(raw_python):
+    """ 
+    input whole raw yaml data and returns a dictionary of the 
+    information for the header
+    """
     header = raw_python['header']
     header['zipcode']=str(header['zipcode'])
     return header
+    
+def process_body_from_raw_data(raw_python):
+    """ 
+    input whole raw yaml data and returns a dictionary of the 
+    information for the header
+    """
+    body = raw_python['body']
+    return body
     
 def create_point_objects_from_point_list(raw_python):
     """
@@ -86,7 +98,28 @@ def create_task_objects_from_task_list(raw_python):
     ensure proper keys or throw error
     return list of task objects
     """
-    raise NotImplementedError()
+    
+    if not isinstance(raw_python, list):
+        raise TypeError('input to create_point_objects_from_point_list needs to be a list. currently is ' + str(type(raw_python)))
+    tasks=[]
+    for task in raw_python:
+        if not isinstance(task, dict):
+            raise TypeError('input to create_point_objects_from_point_list needs to be a list of dictionaries. currently is  a list of ' + str(type(task)))
+        if 'name' not in task.keys():
+            raise Exception('task objects must have a "name" attribute. current task contains ' + str(task))
+        tasks.append(Task(task['name']))
+        #add items to tasks
+        if 'year' in task.keys():
+            tasks[-1].year = task['year']
+        if 'emphasis' in task.keys():
+            tasks[-1].emphasis = task['emphasis']
+        if 'time' in task.keys():
+            tasks[-1].dates = task['time']
+        if 'org' in task.keys():
+            tasks[-1].entity = task['org']
+        if 'points' in task.keys():
+            tasks[-1].points = create_point_objects_from_point_list(task['points'])
+    return tasks
     
 def process_body_to_python_objects(raw_python):
     """

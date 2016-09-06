@@ -17,7 +17,7 @@ def writeobj(obj, pref):
     algorythem and checking to see if the document's desired_emphasis allows
     for the item to be printed.
     obj = an item of Category, Task, or Point class
-    emph = desired emphasis of the document
+    pref = desired emphasis of the document
     """
     
     if pref.judge(obj):

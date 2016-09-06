@@ -49,6 +49,8 @@ class Tests(TestCase):
         self.assertEqual(raw_python['body'][0]['tasks'][0]['points'][0]['emphasis'],
                          ['education','research'])
         
+    
+    
     def test_if_header_dict_output_properly(self):
         raw_python = generator.get_raw_python_from_yaml(self.yaml_resume)
         header = generator.process_header_from_raw_data(raw_python)
@@ -57,9 +59,10 @@ class Tests(TestCase):
         self.assertIsInstance(header['zipcode'],str)
         
     def test_if_body_list_converted_to_objects(self):
-        self.body_raw = generator.process_body_from_raw_data(self.raw_python)
-        self.categories = generator.process_body_to_python_objects(self.body_raw)
-        
+        raw_python = generator.get_raw_python_from_yaml(self.yaml_resume)
+        body_raw = generator.process_body_from_raw_data(raw_python)
+        self.categories = generator.process_body_to_python_objects(body_raw)
+        self.fail('figure out what this test does')
         
     def test_if_points_formed_properly(self):
         raw_resume = """
@@ -79,12 +82,41 @@ class Tests(TestCase):
         self.assertEqual(points[0].text,'I did a task here')
         self.assertIsInstance(points[1].emphasis,list)
         
+        
     def test_if_tasks_formed_properly(self):
-        self.fail('finish task method')
+        task_list_yaml="""
+    - name : Ph.D. Engineering
+      time : 2010-2012
+      org  : Massachusetts Institute of Technology
+      points:
+      - text: advanced knowledge of catalytic systems for biogas recovery
+        emphasis: ['education','research']
+    - name : B.S. Engineering
+      time : 2008-2010
+      org  : University of Moscow
+      year : 2015
+      emphasis : ['undergraduate']
+      points:
+      - text : solved world hunger
+      - text : ate 3 packs of potato chips
+        emphasis: ['diet']
+        
+        """
+        raw_python = yaml.load(task_list_yaml)
+        tasks = generator.create_task_objects_from_task_list(raw_python)
+        self.assertEqual(len(tasks), 2)
+        self.assertIsInstance(tasks[0],api.Task)
+        self.assertEqual(tasks[1].dates,'2008-2010')
+        self.assertIsInstance(tasks[0].points[0].emphasis[0],str)
+        self.assertEqual(tasks[1].points[1].text,'ate 3 packs of potato chips')
+        
         
         
     def test_if_body_objects_formed_properly(self):
-        self.body_processed = generator.process_body_to_python_objects(self.body_raw)
+        
+        raw_python = generator.get_raw_python_from_yaml(self.yaml_resume)
+        body_raw = generator.process_body_from_raw_data(raw_python)
+        self.body_processed = generator.process_body_to_python_objects(body_raw)
         self.fail('finish writing')
         
         
