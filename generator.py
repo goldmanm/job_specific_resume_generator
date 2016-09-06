@@ -100,7 +100,7 @@ def create_task_objects_from_task_list(raw_python):
     """
     
     if not isinstance(raw_python, list):
-        raise TypeError('input to create_point_objects_from_point_list needs to be a list. currently is ' + str(type(raw_python)))
+        raise TypeError('input to create_task_objects_from_task_list needs to be a list. currently is ' + str(type(raw_python)))
     tasks=[]
     for task in raw_python:
         if not isinstance(task, dict):
@@ -123,8 +123,27 @@ def create_task_objects_from_task_list(raw_python):
     
 def process_body_to_python_objects(raw_python):
     """
-    input a list of dictionaries of category attributes
+    input a list of dictionaries of sections.
     ensure proper keys or throw error
     return list of category objects
     """
+    if not isinstance(raw_python, list):
+        raise TypeError('input to process_body_to_python_objects needs to be a list. currently is ' + str(type(raw_python)))
+    sections = []
+    for section in raw_python:
+        if not isinstance(section, dict):
+            raise TypeError('input to create_section_objects_from_section_list needs to be a list of dictionaries. currently is  a list of ' + str(type(section)))
+        if 'topic' not in section.keys():
+            raise Exception('section objects must have a "topic" attribute. current section contains ' + str(section))
+        sections.append(Category(section['topic']))
+        if 'year' in section.keys():
+            sections[-1].year = section['year']
+        if 'emphasis' in section.keys():
+            sections[-1].emphasis = section['emphasis']
+        if 'tasks' in section.keys():
+            sections[-1].tasks = create_task_objects_from_task_list(section['tasks'])
+        if 'points' in section.keys():
+            sections[-1].points = create_point_objects_from_point_list(section['points'])
+    return sections
+    
     raise NotImplementedError()

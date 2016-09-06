@@ -48,9 +48,7 @@ class Tests(TestCase):
         self.assertEqual(raw_python['body'][0]['topic'],'Education')
         self.assertEqual(raw_python['body'][0]['tasks'][0]['points'][0]['emphasis'],
                          ['education','research'])
-        
-    
-    
+
     def test_if_header_dict_output_properly(self):
         raw_python = generator.get_raw_python_from_yaml(self.yaml_resume)
         header = generator.process_header_from_raw_data(raw_python)
@@ -58,11 +56,11 @@ class Tests(TestCase):
             self.assertIn(item,header)
         self.assertIsInstance(header['zipcode'],str)
         
-    def test_if_body_list_converted_to_objects(self):
-        raw_python = generator.get_raw_python_from_yaml(self.yaml_resume)
-        body_raw = generator.process_body_from_raw_data(raw_python)
-        self.categories = generator.process_body_to_python_objects(body_raw)
-        self.fail('figure out what this test does')
+#    def test_if_body_list_converted_to_objects(self):
+#        raw_python = generator.get_raw_python_from_yaml(self.yaml_resume)
+#        body_raw = generator.process_body_from_raw_data(raw_python)
+#        self.categories = generator.process_body_to_python_objects(body_raw)
+#        self.fail('figure out what this test does')
         
     def test_if_points_formed_properly(self):
         raw_resume = """
@@ -116,10 +114,24 @@ class Tests(TestCase):
         
         raw_python = generator.get_raw_python_from_yaml(self.yaml_resume)
         body_raw = generator.process_body_from_raw_data(raw_python)
-        self.body_processed = generator.process_body_to_python_objects(body_raw)
-        self.fail('finish writing')
+        body_processed = generator.process_body_to_python_objects(body_raw)
+        self.assertEqual(body_processed[0].tasks[0].title, 'Ph.D. Engineering')
+        self.assertEqual(body_processed[0].tasks[0].points[0].text, 'advanced knowledge of catalytic systems for biogas recovery')
+        self.assertEqual(body_processed[0].points[0].text, 'I got a good education')
+        self.assertEqual(body_processed[1].name, 'Work')
         
         
         
+        
+    
+
+class FunctionalTests(TestCase):
+    
+    def setUp(self):
+        pass
+        
+    def tearDown(self):
+        pass
+
 if __name__ =='__main__':
     unittest.main()
