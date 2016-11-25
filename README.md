@@ -9,11 +9,19 @@ This program is an experiment designed to as a smart master resume which can aut
 * figure out how the frontend file should be designed
 	* determine classes to write in API
 * add information to my latex resume
+* have a compressed list option
 * have log and debug option?
 * close the writing file when finished writing. 
-* delete temperary file in test case.
+* delete temperary file in test case & other unnecessary file
 * reorganize the files (yaml conversion, tex printing, main_method separate from generating files)
+* Make display of category -> points different than category -> tasks -> points
+* write test to see if the emphasis is actually eliminating items from 
+* throw error when misspelled section arises
+* add makefile
+* create spacing in printed out tex file 
 
+* allow using a '!' as a not sign in emphasis categories. 
+* throw error when topics mistyped from preferences
 ## installation
 
 These files can be used directly from the command line window on linux systems (and possibly Mac, though it hasn't been tested). For windows 10 systems, you can utilize the vertual linux terminal in the Microsoft store to run this software. 
