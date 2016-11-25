@@ -158,8 +158,9 @@ class DocumentPreferences:
             for tag_name in other_emph:
                 if tag_name in self.emph:
                     return True
-        elif isinstance(script_tags, str):
-            if resume_tags.count(script_tags)>0 or script_tags=='':
+        elif isinstance(other_emph, str):
+            if other_emph in self.emph:
                 return True
         else:
             raise Exception('arguement script_tags must be a list or string')
+        return False
