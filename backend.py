@@ -24,7 +24,7 @@ def writeobj(obj, pref):
     
     if pref.judge(obj):
         if isinstance(obj,Point):
-            write(r"\item " + obj.text)
+            write(r"\item[] " + obj.text)
         elif isinstance(obj,Task):
             write(r"\headercondensed{%s}{%s}{%s}" % (obj.title,obj.entity,obj.dates))
             
@@ -126,13 +126,17 @@ def makeheader():
 {\begin{tabular*}{\linewidth}{l@{\extracolsep{\fill}}r}
 	#1 &
 	#2 \\
-\end{tabular*}}
+\end{tabular*}
+
+}
 
 % format three pieces of text, one left aligned, one center, and one right aligned
 \newcommand{\headercondensed}[3]
 {\begin{tabular*}{\linewidth}{l@{\extracolsep{\fill}}c@{\extracolsep{\fill}}r}
-	\textbf{#1} & #2 & \emph{#3} \\
-\end{tabular*}}
+	\textbf{#1} & #2 & \emph{#3}
+\end{tabular*}
+
+}
 
 
 % format intro with project, position, company, date
