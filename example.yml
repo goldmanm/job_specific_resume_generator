@@ -18,9 +18,6 @@ body:
         emphasis: ['education','research']
     points : 
     - text: I got a good education
-      emphasis : ['education']
-      
-      
-                
+      emphasis : ['education']         
   - topic : Work
 
