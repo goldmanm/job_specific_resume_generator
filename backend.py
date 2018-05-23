@@ -100,6 +100,14 @@ def makeheader():
 \usepackage[backend=biber,style=authoryear, bibstyle=authoryear, sorting = ynt]{biblatex}
 \addbibresource{resume.bib}
 
+% proper links
+\usepackage[svgnames]{xcolor}
+\usepackage[colorlinks]{hyperref}
+\hypersetup{citecolor=DeepPink4}
+\hypersetup{linkcolor=DarkRed}
+\hypersetup{urlcolor=DarkBlue}
+\usepackage{cleveref}
+
 % indentsection style, used for sections that aren't already in lists
 % that need indentation to the level of all text in the document
 \newenvironment{indentsection}[1]%
