@@ -27,11 +27,14 @@ def writeobj(obj, pref):
             return r"\item[] " + obj.text
         elif isinstance(obj,Task):
             string = r"\headercondensed{%s}{%s}{%s}" % (obj.title,obj.entity,obj.dates)
-            if obj.points != []:            
-                string += r"\begin{itemize}"
+            if obj.points != []:
+                points_string = ''
                 for point in obj.points:
-                    string += writeobj(point,pref)
-                string += r"\end{itemize}"
+                    points_string += writeobj(point,pref)
+                if points_string: # valid points are identified
+                    string += r"\begin{itemize}"
+                    string += points_string
+                    string += r"\end{itemize}"
         elif isinstance(obj,Category):
             string = r"\subsection*{%s}" % (obj.name)
             if obj.tasks != [] or obj.points != []:
@@ -40,10 +43,13 @@ def writeobj(obj, pref):
                     for task in obj.tasks:
                         string += writeobj(task,pref)
                 if obj.points != []:
-                    string+=r"\begin{itemize}"
+                    points_string = ''
                     for point in obj.points:
-                        string+=writeobj(point,pref)
-                    string+=r"\end{itemize}"
+                        points_string += writeobj(point,pref)
+                    if points_string: # valid points are identified
+                        string += r"\begin{itemize}"
+                        string += points_string
+                        string += r"\end{itemize}"
                 string+=r"\end{indentsection}"
         else:
             raise Exception("the class passed to writeobj is not supported. the passed class is " + str(type(obj)))
