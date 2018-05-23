@@ -24,30 +24,31 @@ def writeobj(obj, pref):
     
     if pref.judge(obj):
         if isinstance(obj,Point):
-            write(r"\item[] " + obj.text)
+            return r"\item[] " + obj.text
         elif isinstance(obj,Task):
-            write(r"\headercondensed{%s}{%s}{%s}" % (obj.title,obj.entity,obj.dates))
-            
+            string = r"\headercondensed{%s}{%s}{%s}" % (obj.title,obj.entity,obj.dates)
             if obj.points != []:            
-                write(r"\begin{itemize}")
+                string += r"\begin{itemize}"
                 for point in obj.points:
-                    writeobj(point,pref)
-                write(r"\end{itemize}")
+                    string += writeobj(point,pref)
+                string += r"\end{itemize}"
         elif isinstance(obj,Category):
-            write(r"\subsection*{%s}" % (obj.name))
+            string = r"\subsection*{%s}" % (obj.name)
             if obj.tasks != [] or obj.points != []:
-                write(r"\begin{indentsection}{\parindent} \parskip=0.1em")
+                string += r"\begin{indentsection}{\parindent} \parskip=0.1em"
                 if obj.tasks != []:
                     for task in obj.tasks:
-                        writeobj(task,pref)
+                        string += writeobj(task,pref)
                 if obj.points != []:
-                    write(r"\begin{itemize}")
+                    string+=r"\begin{itemize}"
                     for point in obj.points:
-                        writeobj(point,pref)
-                    write(r"\end{itemize}")
-                write(r"\end{indentsection}")
+                        string+=writeobj(point,pref)
+                    string+=r"\end{itemize}"
+                string+=r"\end{indentsection}"
         else:
             raise Exception("the class passed to writeobj is not supported. the passed class is " + str(type(obj)))
+        return string
+    return ''
 
 def output(text, tag_arg=''):
     """

@@ -177,7 +177,8 @@ if __name__ =='__main__':
     backend.write(api.header(hd['name'], hd['address'],hd['city'],hd['state'],hd['zipcode'], hd['phone'],hd['email']))
     for category in category_list:
         if category.name in pref.categories:
-            backend.writeobj(category,pref)
+            category_string = backend.writeobj(category,pref)
+            backend.write(category_string)
             
     
     
