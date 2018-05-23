@@ -166,6 +166,11 @@ if __name__ =='__main__':
     set_writing_file(output_file_name)
     hd, category_list = prepare_resume_data(resume_file)
     pref = prepare_resume_preferences(resume_preferences)
+    # check that input of resume preferences match
+    category_list_names = [cat.name for cat in category_list]
+    for cat in pref.categories:
+        if cat not in category_list_names:
+            raise AttributeError('`{0}` not in list of categories'.format(cat))
     backend.write(backend.makeheader())
     backend.write(backend.begindocument())
     # makes name logo of the document
