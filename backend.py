@@ -93,6 +93,7 @@ def makeheader():
 \usepackage{mdwlist}
 \usepackage{textcomp}
 \usepackage{tgpagella}
+\usepackage{tabularx}
 \pagestyle{empty}
 \setlength{\tabcolsep}{0em}
 \usepackage[version=4]{mhchem}
@@ -132,9 +133,9 @@ def makeheader():
 
 % format three pieces of text, one left aligned, one center, and one right aligned
 \newcommand{\headercondensed}[3]
-{\begin{tabular*}{\linewidth}{l@{\extracolsep{\fill}}c@{\extracolsep{\fill}}r}
+{\begin{tabularx}{\linewidth}{lX<{\raggedleft}@{\hspace{2em}}p{4.5em}<{\raggedleft}}
 	\textbf{#1} & #2 & \emph{#3}
-\end{tabular*}
+\end{tabularx}
 
 }
 
