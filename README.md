@@ -6,15 +6,16 @@ This program is an experiment designed to as a smart master resume which can aut
 
 ## to do
 
-* figure out how the frontend file should be designed
-	* determine classes to write in API
+~~* figure out how the frontend file should be designed~~
+~~	* determine classes to write in API~~
 * add information to my latex resume
+* check spelling of keys in topics, points and categories. 
 * have a compressed list option
 * have log and debug option?
 * close the writing file when finished writing. 
 * delete temperary file in test case & other unnecessary file
 * reorganize the files (yaml conversion, tex printing, main_method separate from generating files)
-* Make display of category -> points different than category -> tasks -> points
+* Make display of category first display points from the category, then tasks and points from the tasks
 * write test to see if the emphasis is actually eliminating items from 
 * throw error when misspelled section arises
 * add makefile
@@ -30,12 +31,9 @@ This software require `pdflatex` as well as python 3 with the `yaml` package. Py
 
 ## designing your resume
 
-for those not familiar with latex, avoid using the following characters in your resume. They are escape characters in LaTeX and will throw errors. If you need to use them, replace them with the following (shown on right)
+This program will automatically convert the following characters from the yaml file to excaped code which properly works in latex: %, &, $, ... If you want to use inline equations with latex, please put `\$` instead of `$`. The engine will convert it to properly display the equation.
 
-avoid these characters | replace with
---------------|-------------
-
-When buildint the resume, you will imput information in python syntax. There are three classes of objects you will create. `Category` is used for main sections like Education, Work or Publications. It stores two other objects, `Task` and `Point`. `Task` would be something like a specific job that you can include extra information using `Point`s. `Point` objects contain a line of text to put in the resume. 
+When building the resume, you will imput information in python syntax. There are three classes of objects you will create. `Category` is used for main sections like Education, Work or Publications. It stores two other objects, `Task` and `Point`. `Task` would be something like a specific job that you can include extra information using `Point`s. `Point` objects contain a line of text to put in the resume. 
 
 All of these objects can contain a year and a list of emphasis. When creating your resume, you can limit items based on these categories. If nothing is input, the items will always appear in your resume (though `Category`s can also be specified in the ceate file). 
 
