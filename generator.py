@@ -171,7 +171,7 @@ if __name__ =='__main__':
     for cat in pref.categories:
         if cat not in category_list_names:
             raise AttributeError('`{0}` not in list of categories'.format(cat))
-    backend.write(backend.makeheader())
+    backend.write(backend.makeheader(),process_text = False)
     backend.write(backend.begindocument())
     # makes name logo of the document
     backend.write(api.header(hd['name'], hd['address'],hd['city'],hd['state'],hd['zipcode'], hd['phone'],hd['email']))

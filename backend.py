@@ -7,10 +7,15 @@ Created on Fri Jul 15 18:56:14 2016
 from api import *
 
 file_writer = None
-def write(text):
+def write(text, process_text=True):
     """
     writes text into the document in a format to be decided later
     """
+    if process_text:
+        text = text.replace('%','\%')
+        text = text.replace('&','\&')
+        text = text.replace('$','\$')
+        text = text.replace('\\$','$')
     file_writer.write(text)
     
 def writeobj(obj, pref):
