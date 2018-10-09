@@ -39,11 +39,13 @@ def writeobj(obj, pref):
                 if points_string: # valid points are identified
                     string += r"\begin{itemize}"
                     string += points_string
-                    string += r"\end{itemize}"
+                    string += r"""\end{itemize}
+                    
+                              \vspace{0.5em}"""
         elif isinstance(obj,Category):
             string = r"\subsection*{%s}" % (obj.name)
             if obj.tasks != [] or obj.points != []:
-                string += r"\begin{indentsection}{\parindent} \parskip=0.1em"
+                string += r"\begin{indentsection}{\parindent} \parskip=0.0em"
                 if obj.tasks != []:
                     for task in obj.tasks:
                         string += writeobj(task,pref)
@@ -55,7 +57,9 @@ def writeobj(obj, pref):
                         string += r"\begin{itemize}"
                         string += points_string
                         string += r"\end{itemize}"
-                string+=r"\end{indentsection}"
+                string+=r"""\end{indentsection}
+                
+                         \vspace{-1em}"""
         else:
             raise Exception("the class passed to writeobj is not supported. the passed class is " + str(type(obj)))
         return string
@@ -111,6 +115,9 @@ def makeheader():
 \usepackage[version=4]{mhchem}
 \usepackage[backend=biber,style=authoryear, bibstyle=authoryear, sorting = ynt]{biblatex}
 \addbibresource{resume.bib}
+% table spacing
+\usepackage{enumitem}
+\setlist{topsep=0.0em,itemsep=0.2em,parsep=0.0em}
 
 % proper links
 \usepackage[svgnames]{xcolor}
@@ -129,13 +136,14 @@ def makeheader():
 }
 {\end{list}}
 
+% possibly not used, remove
 \newenvironment{projectsList}[1]%
 {\subsection*{#1}
 \begin{itemize}
 	\parskip=0.1em
 }
 {\end{itemize}}
-
+% possibly not used, remove
 \newcommand{\inputsec}[1]
 {
 \vspace{-1.5em}
