@@ -168,6 +168,7 @@ if __name__ =='__main__':
     pref = prepare_resume_preferences(resume_preferences)
     # check that input of resume preferences match
     category_list_names = [cat.name for cat in category_list]
+    category_dict = dict(zip(category_list_names,category_list))
     for cat in pref.categories:
         if cat not in category_list_names:
             raise AttributeError('`{0}` not in list of categories'.format(cat))
@@ -175,8 +176,9 @@ if __name__ =='__main__':
     backend.write(backend.begindocument())
     # makes name logo of the document
     backend.write(api.header(hd['name'], hd['address'],hd['city'],hd['state'],hd['zipcode'], hd['phone'],hd['email']))
-    for category in category_list:
-        if category.name in pref.categories:
+    for category_name in pref.categories:
+        if category_name in category_dict.keys():
+            category = category_dict[category_name]
             category_string = backend.writeobj(category,pref)
             backend.write(category_string)
             
