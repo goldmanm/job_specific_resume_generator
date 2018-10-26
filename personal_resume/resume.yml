@@ -1,0 +1,32 @@
+header:
+  name   : Surya Patel
+  address: 12345 Example St.
+  city   : Washington
+  state  : PA
+  zipcode: 01234
+  phone  : '+1 (212)867-5309'
+  email  : 'professional_email_name@personal_email_provider.com'
+body:
+  - topic : Education
+    year  : 2019
+    tasks : 
+    - name: Deploma
+      time: 2019
+      org : Washington High School
+      points:
+      - text: GPA: 4.3/5
+        emphasis: ['college', 'cat sitting']
+      - text: \textbf{courses}: Industrial Design I, Insutrial Design II, Spanish, Karate
+        emphasis: welding
+      - text: \textbf{courses}: Calculus, Chemistry, Advanced Physics, Spanish
+        emphasis: college
+      - text: Fastest car in car design competition
+        emphasis: welding
+    - name: Graduated
+      time: 2015
+      year: 2015
+      org: Sacagawea Middle School
+      emphasis: college
+    points:
+    - text: Frankin Elementry
+      emphasis: college
