@@ -38,10 +38,12 @@ def create_point_objects_from_point_list(raw_python):
     return list of point objects
     """
     if not isinstance(raw_python, list):
+        print(raw_python)
         raise TypeError('input to create_point_objects_from_point_list needs to be a list. currently is ' + str(type(raw_python)))
     points = []
     for point in raw_python:
         if not isinstance(point, dict):
+            print(point)
             raise TypeError('input to create_point_objects_from_point_list needs to be a list of dictionaries. currently is  a list of ' + str(type(point)))
         if 'text' not in point.keys():
             raise Exception('point objects must have a "text" attribute. current point contains ' + str(point))
