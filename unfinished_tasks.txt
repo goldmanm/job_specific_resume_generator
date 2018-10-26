@@ -1,0 +1,79 @@
+## features in the works
+
+* a one page latex option
+* a text file option
+* option to input your data as markdown or yaml
+* importing data as bibtex
+
+## project organization
+
+section | usage
+--------|---------------------------
+wrapper | runs latex and checks number of pages
+backend | orchestrates organization, writes latex file
+API		| contains methods used by user to write their resume
+frontend| this is the python file containing the user-input resume data
+script	| this is where the user specifies what type of resume to create
+
+### wrapper
+
+The wrapper contains the protocols to call LaTeX properly in the file. I need to still figure this out. The book 'programming python' contains information about that.
+
+### backend
+
+The backend performs methods that write the latex file. None of these need to be called by the user in writing of their latex file. 
+
+Methods are:
+
+method		|		description
+------------|--------------------------
+write		| writes to document
+output		| writes to document if tags are matched and valid
+check_match | returns a boolean if the tag matches the item
+ensure_possible_tags | double checks for spelling errors and throws error
+
+This could also contain the unit tests for to ensure functionality. 
+
+### API
+
+The API are methods that the user can utilize to write their resume for the front-end section. These are container classes with methods that convert the text into the LaTeX formatting.
+
+### frontend
+
+
+
+### script
+
+
+
+### page limitations
+
+One algorithm allows for page limitations. To achieve this, the program must be able to create the latex source, create the pdf, and analyze the pdf page length. Then adjustments can be made to the input file until the document is of the correct length.
+
+I am not sure the optimal method to get to the correct information excluded. Some methods applicable. 
+
+* adjust font size
+* adjust spacings
+* remove items described by some 'emphasis'.
+
+It would be sad to not produce a full page when requested, which may require some second-order adjustments. 
+
+## to do
+
+~~* figure out how the frontend file should be designed~~
+~~	* determine classes to write in API~~
+* add information to my latex resume
+* check spelling of keys in topics, points and categories. 
+* have a compressed list option
+* have log and debug option?
+* close the writing file when finished writing. 
+* delete temperary file in test case & other unnecessary file
+* reorganize the files (yaml conversion, tex printing, main_method separate from generating files)
+* Make display of category first display points from the category, then tasks and points from the tasks
+* write test to see if the emphasis is actually eliminating items from 
+* throw error when misspelled section arises
+* add makefile
+* create spacing in printed out tex file 
+
+* allow using a '!' as a not sign in emphasis categories. 
+* throw error when topics mistyped from preferences
